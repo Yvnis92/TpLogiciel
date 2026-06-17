@@ -27,6 +27,35 @@ class WebTests {
     @Autowired
     MockMvc mockMvc;
 
+    @Test
+    void testGetVoitures() throws Exception {
+
+       /* 
+        StatistiqueImpl statistiqueImpl = new StatistiqueImpl();
+        statistiqueImpl.ajouter(new Voiture("Toyota", 2020));
+        Echantillon e =   statistiqueImpl.prixMoyen();
+        */
+        
+        
+        Echantillon echantillon = new Echantillon();
+        echantillon.setNombreDeVoitures(2);
+        echantillon.setPrixMoyen(2000);
+
+        when(statistiqueImpl.prixMoyen()).thenReturn(echantillon);
+
+        mockMvc.perform(get("/statistique")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+           /*   .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].nombreDeVoitures").value(2))
+                .andExpect(jsonPath("$[1].prixMoyen").value(2000));
+
+                */
+
+  
+    }
+
   
 
 }
