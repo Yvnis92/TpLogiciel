@@ -10,15 +10,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StatistiqueTests {
 
     @Test
-    void testStatistique() {
+    void calculerPrixMoyenAvecDeuxVoitures() {
         StatistiqueImpl statistique = new StatistiqueImpl();
-        Voiture v1 = new Voiture("Ferrari", 3000);
-        Voiture v2 = new Voiture("Porsche", 3000);
-        statistique.ajouter(v1);
-        statistique.ajouter(v2);
+
+        statistique.ajouter(new Voiture("Ferrari", 3000));
+        statistique.ajouter(new Voiture("Porsche", 3000));
+
         Echantillon echantillon = statistique.prixMoyen();
+
         assertEquals(3000, echantillon.getPrixMoyen());
         assertEquals(2, echantillon.getNombreDeVoitures());
     }
 
+    @Test
+    void calculerPrixMoyenAvecPrixDifferents() {
+        StatistiqueImpl statistique = new StatistiqueImpl();
+
+        statistique.ajouter(new Voiture("Renault", 1000));
+        statistique.ajouter(new Voiture("Peugeot", 3000));
+
+        Echantillon echantillon = statistique.prixMoyen();
+
+        assertEquals(2000, echantillon.getPrixMoyen());
+        assertEquals(2, echantillon.getNombreDeVoitures());
+    }
 }
